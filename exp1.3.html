@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --header-color: #007bff;
+    }
+    .dark-theme {
+      --bg-color: #121212;
+      --text-color: #f4f4f4;
+      --header-color: #4444ff;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "sidebar main";
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: 60px 1fr;
+      height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      grid-area: header;
+      background: var(--header-color);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .sidebar {
+      grid-area: sidebar;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .main {
+      grid-area: main;
+      padding: 20px;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    @media (max-width: 768px) {
+      body {
+        grid-template-areas:
+          "header"
+          "main"
+          "sidebar";
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 1fr 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Admin Dashboard</h2>
+    <button id="themeToggle">Toggle Theme</button>
+  </header>
+  <div class="sidebar">
+    <h3>Menu</h3>
+    <ul>
+      <li>Overview</li>
+      <li>Users</li>
+      <li>Settings</li>
+    </ul>
+  </div>
+  <div class="main">
+    <h3>Welcome Admin</h3>
+    <p>This is your dashboard content area.</p>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-theme');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', 
+        body.classList.contains('dark-theme') ? 'dark' : 'light'
+      );
+    });
+  </script>
+</body>
+</html>
